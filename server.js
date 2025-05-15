@@ -17,7 +17,7 @@ connectDB()
 connectCloudinary()
 
 // CORS configuration
-const allowedOrigin = 'https://e-com-admin-psi.vercel.app'
+const allowedOrigin = '*'
 
 app.use(cors({
   origin: allowedOrigin,
