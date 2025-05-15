@@ -16,21 +16,17 @@ const port = process.env.PORT || 4000
 connectDB()
 connectCloudinary()
 
-// CORS configuration
-const allowedOrigin = '*'
-
-app.use(cors({
-  origin: allowedOrigin,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
-}))
-
-// Optional: Handle preflight requests (for Vercel)
-app.options('*', cors({
-  origin: allowedOrigin,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true
-}))
+// Use this middleware to allow all origins 
+ app.use(cors({ 
+   origin: '*', 
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] 
+ })); 
+  
+ // Optional: handle preflight requests (for completeness) 
+ app.options('*', cors({ 
+   origin: '*', 
+   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] 
+ }));
 
 // Middleware
 app.use(express.json())
