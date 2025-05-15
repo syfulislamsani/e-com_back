@@ -10,22 +10,41 @@ import orderRouter from './routes/orderRoute.js'
 
 // App config
 const app = express()
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 4000
+
+// Connect to DB and cloud
 connectDB()
 connectCloudinary()
 
-// middlewares
-app.use(express.json())
-app.use(cors())
+// CORS configuration
+const allowedOrigin = 'https://e-com-admin-psi.vercel.app'
 
-// api endpoints
-app.use('/api/user',userRouter)
+app.use(cors({
+  origin: allowedOrigin,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}))
+
+// Optional: Handle preflight requests (for Vercel)
+app.options('*', cors({
+  origin: allowedOrigin,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true
+}))
+
+// Middleware
+app.use(express.json())
+
+// API Routes
+app.use('/api/user', userRouter)
 app.use('/api/product', productRouter)
 app.use('/api/cart', cartRouter)
 app.use('/api/order', orderRouter)
 
-app.get('/', (req, res)=>{
-    res.send("API Working")
+// Test route
+app.get('/', (req, res) => {
+  res.send("API Working")
 })
 
-app.listen(port, ()=> console.log('Server started on PORT : ' + port))
+// Start server
+app.listen(port, () => console.log(Server started on PORT : ${port}))
